@@ -40,40 +40,45 @@ app.get("/search", function (req, res) {
 
     console.log("spawned")
 
+    //method1 tried
     // Takes stdout data from script which executed
     // with arguments and send this data to res object
-    // py.stdout.on("data", function (data) {
-    //   output += data.toString()
-    //   console.log(data.toString())
-    // })
-
-    // py.stderr.on("data", function (data) {
-    //   output += data.toString()
-    //   console.log(data.toString())
-    // })
-
-    // py.on("close", function (exitCode) {
-    //   output = output.trim().match(/[{].*.[}]/) //extract actual content from garbage e.g. JSON between [] or {}
-    //   let result = JSON.parse(output)
-    //   res.json(result)
-    // })
-
-    let result = ""
-    py.stdout.on("data", (data) => {
-      result += data.toString()
-      // Or Buffer.concat if you prefer.
+    let output = ""
+    py.stdout.on("data", function (data) {
+      output += data.toString()
+      console.log(data.toString())
     })
 
-    py.stdout.on("end", () => {
-      try {
-        // If JSON handle the data
-        console.log(JSON.parse(result))
-        res.json(JSON.parse(result))
-      } catch (e) {
-        // Otherwise treat as a log entry
-        console.log(result)
-      }
+    py.stderr.on("data", function (data) {
+      output += data.toString()
+      console.log(data.toString())
     })
+
+    py.on("close", function (exitCode) {
+      // output = output.trim().match(/[{].*.[}]/) //extract actual content from garbage e.g. JSON between [] or {}
+      let result = JSON.parse(output.trim())
+      res.json(result)
+    })
+
+    //method2
+    // let result = ""
+    // py.stdout.on("data", (data) => {
+    //   result += data.toString()
+    //   // Or Buffer.concat if you prefer.
+    // })
+
+    // py.stdout.on("end", () => {
+    //   try {
+    //     // If JSON handle the data
+    //     console.log(JSON.parse(result))
+    //     res.json(JSON.parse(result))
+    //   } catch (e) {
+    //     // Otherwise treat as a log entry
+    //     console.log(result)
+    //   }
+    // })
+
+    //method3
     // try {
     //   py.stdout.on("data", function (data) {
     //     console.log("Sending Info")
