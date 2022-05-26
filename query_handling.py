@@ -7,7 +7,6 @@ import numpy as np
 from bisect import bisect_left
 from scipy import spatial
 import sys
-import json
 
 # #load stopwords
 stopwords=pd.read_csv("./reqd_csv/stopwords.csv")["Word"].tolist()
