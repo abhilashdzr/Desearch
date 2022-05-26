@@ -32,6 +32,7 @@ app.get("/search", function (req, res) {
     //    and arguments for the script
     console.log("The query is ", question)
     var py = spawn("python", [__dirname + "/query_handling.py", question])
+    console.log(__dirname + "/query_handling.py")
 
     console.log("spawned")
 
