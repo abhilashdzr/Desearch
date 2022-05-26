@@ -1,0 +1,67 @@
+* {
+  box-sizing: border-box;
+}
+.branding {
+  font-size: 6vw;
+  text-align: center;
+  color: red;
+  /* font-family: ; */
+  padding: 5% 40% 1% 35%;
+  font-family: "Pacifico", cursive;
+}
+div.top {
+  /* background-color: #f4b2f1; */
+  background-color: #f5b8f2;
+  margin-bottom: 0px !important;
+}
+
+/*honeydew ,khakhi, lavender, lavenderblush, misty rose, thistle*/
+
+.form {
+  width: 100%;
+  padding: 20px;
+  align-items: center;
+}
+input {
+  padding: 10px;
+  margin: 10px 0;
+  border: 0;
+  box-shadow: 0 0 15px 4px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 25px;
+  outline: none;
+}
+input[type="text"] {
+  width: 50%;
+  margin: 2%;
+}
+input[type="submit"] {
+  width: 5%;
+  font-size: 0.8em;
+}
+.grid-container {
+  display: none;
+  grid-template-columns: 1fr;
+  row-gap: 25px;
+  padding: 10px;
+  border: 3px solid orange;
+  border-radius: 10px;
+  margin-top: 10px;
+  width: fit-content;
+}
+
+.grid-item {
+  padding: 10px;
+  height: auto;
+  background-color: beige;
+  border: 3px solid orange;
+  border-radius: 10px;
+}
+
+.url {
+  float: left;
+}
+.tag {
+  float: right;
+}

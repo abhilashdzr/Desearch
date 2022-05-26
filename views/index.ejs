@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html>
+  <head>
+    <title>Desearch</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="top">
+      <div class="branding">Desearch</div>
+      <form class="form" action="" style="text-align: center">
+        <input
+          type="text"
+          required
+          name="question"
+          id="question"
+          placeholder="Kal main udega"
+          autocomplete="off"
+        />
+        <input type="submit" value="</>" />
+      </form>
+    </div>
+    <div class="bottom">
+      <div class="load"></div>
+      <div class="grid-container">
+        <div class="grid-item">
+          <div class="title"></div>
+          <div class="statement"></div>
+          <div class="link">
+            <a
+              class="url"
+              href=""
+              onclick="window.open(this.href,'_blank');return false;"
+              >Visit the question</a
+            >
+            <div class="tag"></div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="title"></div>
+          <div class="statement"></div>
+          <div class="link">
+            <a
+              class="url"
+              href=""
+              onclick="window.open(this.href,'_blank');return false;"
+              >Visit the question</a
+            >
+            <div class="tag"></div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="title"></div>
+          <div class="statement"></div>
+          <div class="link">
+            <a
+              class="url"
+              href=""
+              onclick="window.open(this.href,'_blank');return false;"
+              >Visit the question</a
+            >
+            <div class="tag"></div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="title"></div>
+          <div class="statement"></div>
+          <div class="link">
+            <a
+              class="url"
+              href=""
+              onclick="window.open(this.href,'_blank');return false;"
+              >Visit the question</a
+            >
+            <div class="tag"></div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="title"></div>
+          <div class="statement"></div>
+          <div class="link">
+            <a
+              class="url"
+              href=""
+              onclick="window.open(this.href,'_blank');return false;"
+              >Visit the question</a
+            >
+            <div class="tag"></div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="title"></div>
+          <div class="statement"></div>
+          <div class="link">
+            <a
+              class="url"
+              href=""
+              onclick="window.open(this.href,'_blank');return false;"
+              >Visit the question</a
+            >
+            <div class="tag"></div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="title"></div>
+          <div class="statement"></div>
+          <div class="link">
+            <a
+              class="url"
+              href=""
+              onclick="window.open(this.href,'_blank');return false;"
+              >Visit the question</a
+            >
+            <div class="tag"></div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="title"></div>
+          <div class="statement"></div>
+          <div class="link">
+            <a
+              class="url"
+              href=""
+              onclick="window.open(this.href,'_blank');return false;"
+              >Visit the question</a
+            >
+            <div class="tag"></div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="title"></div>
+          <div class="statement"></div>
+          <div class="link">
+            <a class="url"></a>
+            <div class="tag"></div>
+          </div>
+        </div>
+        <div class="grid-item">
+          <div class="title"></div>
+          <div class="statement"></div>
+          <div class="link">
+            <a
+              class="url"
+              href=""
+              onclick="window.open(this.href,'_blank');return false;"
+              >Visit the question</a
+            >
+            <div class="tag"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="instruction">
+        <ul>
+          <li>See that the spellings of the words are correct</li>
+          <li>
+            In case none of the typed words are familiar to the database, it
+            will randomly generate 10 results.
+          </li>
+          <li>
+            It might be possible that the question you type in is not present in
+            the database, so might not be retrieved.
+          </li>
+          <li>
+            If you do not get appropriate results, then try adding a few more
+            keywords or correct any spelling mistake, if present
+          </li>
+          <li>
+            This database might show results according to question tags, but
+            will not according to company tags (e.g. Amazon, Microsoft)
+          </li>
+          <li>
+            Any query takes at most 2.5 seconds to load, so hang on for that
+            time
+          </li>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!---including jquery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.
+js"></script>
+
+<script>
+  const form = document.querySelector("form")
+  const question = form.question
+
+  const titles = document.querySelectorAll(".title")
+  const urls = document.querySelectorAll("url")
+  const statements = document.querySelectorAll(".statement")
+  const tag = document.querySelectorAll(".tag")
+  const load = document.querySelectorAll(".load")
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault()
+    $(".grid-container").css("display", "none")
+    load[0].innerHTML = `<h3>Loading ... </h3>`
+
+    //fetch
+    try {
+      for (let i = 0; i < 10; i++) {
+        stringofnum = "" + i
+        titles[i].innerHTML = ``
+        statements[i].innerHTML = ``
+        urls[i] = ``
+        tag[i].innerHTML = ``
+      }
+
+      const res = await fetch(`/search?question=${question.value}`, {
+        method: "GET",
+      })
+
+      const data = await res.json()
+
+      load[0].innerHTML = ``
+      $(".grid-container").css("display", "grid")
+
+      for (let i = 0; i < 10; i++) {
+        stringofnum = "" + i
+        let str = data["Statement"][stringofnum].split(" ")
+        let l = str.length
+        const len = 60
+        if (l >= len) {
+          str = str.slice(0, len)
+        }
+        let modstr = ""
+        for (let j = 0; j < str.length; j++) {
+          modstr = modstr + str[j] + " "
+        }
+        if (l > len) {
+          modstr = modstr + "..."
+        }
+        titles[i].innerHTML = `${data["Title"][stringofnum]}`
+        statements[i].innerHTML = `${modstr}`
+        $("a").eq(i).attr("href", data["Link"][stringofnum])
+        tag[i].innerHTML = `${data["Tag"][stringofnum]}`
+      }
+    } catch (error) {
+      alert(error)
+    }
+  })
+</script>

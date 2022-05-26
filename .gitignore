@@ -1,0 +1,9 @@
+node_modules
+rough.json
+env/
+nltk/
+src/
+tf-idf/
+visited/
+Dockerfile
+
