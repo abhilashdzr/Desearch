@@ -31,11 +31,11 @@ app.get("/search", function (req, res) {
     // 2. list containing Path of the script
     //    and arguments for the script
     console.log("The query is ", question)
-    var process = spawn("python", [__dirname + "/query_handling.py", question])
+    var py = spawn("python", [__dirname + "/query_handling.py", question])
 
     // Takes stdout data from script which executed
     // with arguments and send this data to res object
-    process.stdout.on("data", function (data) {
+    py.stdout.on("data", function (data) {
       console.log("Sending Info")
       // mystr = data.toString("utf8")
 
@@ -51,5 +51,5 @@ const PORT = process.env.PORT || 3000
 // Creates a server which runs on port 3000 and
 // can be accessed through localhost:3000
 app.listen(PORT, function () {
-  console.log("server running on port 3000")
+  console.log(`server running on PORT ${PORT}`)
 })
