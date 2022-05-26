@@ -9,6 +9,8 @@ app.set("view engine", "ejs")
 app.use(express.static(path.join(__dirname, "/public")))
 console.log(__dirname + "/public")
 
+app.use(express.json())
+
 //--------------ROUTES-----------------------
 
 //GET request to homepage
