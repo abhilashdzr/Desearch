@@ -48,9 +48,9 @@ app.get("/search", function (req, res) {
     // with arguments and send this data to res object
     process.stdout.on("data", function (data) {
       console.log("Sending Info")
-      mystr = data.toString("utf8")
+      // mystr = data.toString("utf8")
 
-      myjson = JSON.parse(mystr)
+      myjson = JSON.parse(data)
       res.json(myjson)
     })
   }
