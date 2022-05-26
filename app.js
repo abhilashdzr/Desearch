@@ -1,6 +1,7 @@
 const express = require("express")
 const ejs = require("ejs") //View engine
 var app = express()
+var bodyParser = require("body-parser")
 const path = require("path")
 
 //Setting view engine
@@ -9,7 +10,8 @@ app.set("view engine", "ejs")
 app.use(express.static(path.join(__dirname, "/public")))
 console.log(__dirname + "/public")
 
-app.use(express.json())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
 
 //--------------ROUTES-----------------------
 
@@ -38,23 +40,39 @@ app.get("/search", function (req, res) {
 
     console.log("spawned")
 
-    let output = ""
     // Takes stdout data from script which executed
     // with arguments and send this data to res object
-    py.stdout.on("data", function (data) {
-      output += data.toString()
-      console.log(data.toString())
+    // py.stdout.on("data", function (data) {
+    //   output += data.toString()
+    //   console.log(data.toString())
+    // })
+
+    // py.stderr.on("data", function (data) {
+    //   output += data.toString()
+    //   console.log(data.toString())
+    // })
+
+    // py.on("close", function (exitCode) {
+    //   output = output.trim().match(/[{].*.[}]/) //extract actual content from garbage e.g. JSON between [] or {}
+    //   let result = JSON.parse(output)
+    //   res.json(result)
+    // })
+
+    let result = ""
+    py.stdout.on("data", (data) => {
+      result += data.toString()
+      // Or Buffer.concat if you prefer.
     })
 
-    py.stderr.on("data", function (data) {
-      output += data.toString()
-      console.log(data.toString())
-    })
-
-    py.on("close", function (exitCode) {
-      output = output.trim().match(/[{].*.[}]/) //extract actual content from garbage e.g. JSON between [] or {}
-      let result = JSON.parse(output)
-      res.json(result)
+    py.stdout.on("end", () => {
+      try {
+        // If JSON handle the data
+        console.log(JSON.parse(result))
+        res.json(JSON.parse(result))
+      } catch (e) {
+        // Otherwise treat as a log entry
+        console.log(result)
+      }
     })
     // try {
     //   py.stdout.on("data", function (data) {
