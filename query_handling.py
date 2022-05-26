@@ -88,8 +88,8 @@ def similarity(a1,a2):
 
 '''MAIN'''
 #MAIN part of the func
-# pruned_s = handle(sys.argv[1])
-pruned_s = handle("binary")
+pruned_s = handle(sys.argv[1])
+# pruned_s = handle("binary")
 
 #load the idf csv
 idf = pd.read_csv("./reqd_csv/idf.csv")
