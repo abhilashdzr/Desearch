@@ -38,19 +38,35 @@ app.get("/search", function (req, res) {
 
     console.log("spawned")
 
+    let output = ""
     // Takes stdout data from script which executed
     // with arguments and send this data to res object
-    try {
-      py.stdout.on("data", function (data) {
-        console.log("Sending Info")
-        mystr = data.toString("utf8")
+    py.stdout.on("data", function (data) {
+      output += data.toString()
+      console.log(data.toString())
+    })
 
-        myjson = JSON.parse(data)
-        res.json(myjson)
-      })
-    } catch (error) {
-      console.log("Error parsing json", error, data)
-    }
+    py.stderr.on("data", function (data) {
+      output += data.toString()
+      console.log(data.toString())
+    })
+
+    py.on("close", function (exitCode) {
+      output = output.trim().match(/[{].*.[}]/) //extract actual content from garbage e.g. JSON between [] or {}
+      let result = JSON.parse(output)
+      res.json(result)
+    })
+    // try {
+    //   py.stdout.on("data", function (data) {
+    //     console.log("Sending Info")
+    //     mystr = data.toString("utf8")
+
+    //     myjson = JSON.parse(data)
+    //     res.json(myjson)
+    //   })
+    // } catch (error) {
+    //   console.log("Error parsing json", error, data)
+    // }
     // py.stdout.on("data", function (data) {
     //   console.log("Sending Info")
     //   mystr = data.toString("utf8")
