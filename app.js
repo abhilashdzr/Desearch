@@ -33,6 +33,8 @@ app.get("/search", function (req, res) {
     console.log("The query is ", question)
     var py = spawn("python", [__dirname + "/query_handling.py", question])
 
+    console.log("spawned")
+
     // Takes stdout data from script which executed
     // with arguments and send this data to res object
     py.stdout.on("data", function (data) {
