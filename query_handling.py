@@ -7,6 +7,7 @@ import numpy as np
 from bisect import bisect_left
 from scipy import spatial
 import sys
+import json
 
 # #load stopwords
 stopwords=pd.read_csv("./reqd_csv/stopwords.csv")["Word"].tolist()
@@ -166,5 +167,6 @@ statements["Similarity"] = l
 statements2 = statements.sort_values(by = "Similarity",ascending=False)
 statements2 = statements2.drop_duplicates()
 df = statements2.iloc[0:10,0:4].reset_index().iloc[:,1:]
-print(df.to_json())
+new_data = df.to_json()
+print(new_data)
 sys.stdout.flush()
