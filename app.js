@@ -40,13 +40,24 @@ app.get("/search", function (req, res) {
 
     // Takes stdout data from script which executed
     // with arguments and send this data to res object
-    py.stdout.on("data", function (data) {
-      console.log("Sending Info")
-      mystr = data.toString("utf8")
+    try {
+      py.stdout.on("data", function (data) {
+        console.log("Sending Info")
+        mystr = data.toString("utf8")
 
-      myjson = JSON.parse(data)
-      res.json(myjson)
-    })
+        myjson = JSON.parse(data)
+        res.json(myjson)
+      })
+    } catch (error) {
+      console.log("Error parsing json", error, data)
+    }
+    // py.stdout.on("data", function (data) {
+    //   console.log("Sending Info")
+    //   mystr = data.toString("utf8")
+
+    //   myjson = JSON.parse(data)
+    //   res.json(myjson)
+    // })
   }
 })
 
