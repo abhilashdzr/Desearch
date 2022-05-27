@@ -12,6 +12,9 @@ import sys
 stopwords=pd.read_csv("./reqd_csv/stopwords.csv")["Word"].tolist()
 #load stop keys
 
+stop = [chr(92),"~","`",".","=","'",";","%","@","|","$","?","≠","->","≤","^","#","{","}","&","_","+","-","!","∑","[","]","/","<",">",":","(",")","*"]
+
+
 
 #primarily removed stuff
 remove = [".",",",":","\"","!","'","?","Tags","\t","\b"]
