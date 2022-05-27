@@ -11,7 +11,8 @@ import sys
 # #load stopwords
 stopwords=pd.read_csv("./reqd_csv/stopwords.csv")["Word"].tolist()
 #load stop keys
-stop = [chr(92),"~","`",".","=","'",";","%","@","|","$","?","≠","->","≤","^","⊕","#","\leq","→","{","}","&","_","+","-","!","∑","[","]","/","<",">",":","(",")","*"]
+
+
 #primarily removed stuff
 remove = [".",",",":","\"","!","'","?","Tags","\t","\b"]
 
@@ -69,10 +70,10 @@ def handle(q):
             flag=-1
 
         #go thru the word and find a stopkey
-        for l in word:
-            if l in stop or notEnglish(l):
-                flag=-1
-                break
+        # for l in word:
+        #     if l in stop or notEnglish(l):
+        #         flag=-1
+        #         break
 
         if flag==-1:
             continue
